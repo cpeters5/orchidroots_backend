@@ -19,3 +19,4 @@ media/
 .vscode
 myproject/settings/production.py
 myproject/settings/local.py
+myproject/settings.py
