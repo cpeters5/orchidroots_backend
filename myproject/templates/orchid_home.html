@@ -125,25 +125,24 @@ img{
         <div class="col-sm-2 center-image hidden-xs; " style="padding:0;">
             <br><br>
             <ul>
-                <li><a type="button" class="btn btn-default" href="{% url 'orchidlist:browsegen' %}?type=species&att=">Browse Images</a></li>
+                <li><a type="button" class="btn btn-default" href="#">Browse Images</a></li>
                 <li><a type="button" class="btn btn-default" href="#">Photo submission guideline</a></li>
-                <li><a type="button" class="btn btn-default" href="{% url 'documents:termsofuse' %}">Terms of use</a></li>
-                <li><a type="button" class="btn btn-default" href="{% url 'documents:disclaimer' %}">License & Disclaimer</a></li>
-                <li><a type="button" class="btn btn-default" href="{% url 'documents:contact' %}">Contact us</a></li>
-                <li><a type="button" class="btn btn-default" href="{% url 'documents:changes' %}">Release history</a></li>
-                <li><a type="button" class="btn btn-default" href="{% url 'documents:list' %}">Documentation</a></li>
-                <li><a type="button" class="btn btn-default" href="{% url 'documents:privacy_policy' %}">Privacy policy</a></li>
-                <li><a type="button" class="btn btn-default" href="{% url 'documents:list' %}">Other documentation</a></li>
+                <li><a type="button" class="btn btn-default" href="#">Terms of use</a></li>
+                <li><a type="button" class="btn btn-default" href="#">License & Disclaimer</a></li>
+                <li><a type="button" class="btn btn-default" href="#">Contact us</a></li>
+                <li><a type="button" class="btn btn-default" href="#">Release history</a></li>
+                <li><a type="button" class="btn btn-default" href="#">Documentation</a></li>
+                <li><a type="button" class="btn btn-default" href="#">Privacy policy</a></li>
+                <li><a type="button" class="btn btn-default" href="#">Other documentation</a></li>
 <hr>
-                <li><a type="button" class="btn btn-default" href="{% url 'donation:donateapp' %}">Become a supporter</a></li>
-<!--                <li><a type="button" class="btn btn-default" href="{ url 'home' %}">New home - UC</a></li>-->
+                <li><a type="button" class="btn btn-default" href="#">Become a supporter</a></li>
             </ul>
         </div>
         <div class="col-xs-12 col-sm-10">
             <div style="clear:left; margin:0 auto; ">
                 <h5>Sample Images
                     <small style="font-size: 14px;"><br>Select a genus name to see the list of species or hybrid or click
-                        <a href="{% url 'orchidlist:browsegen' %}?role={{role}}">&nbsp;<b>here</b>&nbsp;</a> to see more complete list of genera available in OrchidRoots</a>
+                        <a href="#">&nbsp;<b>here</b>&nbsp;</a> to see more complete list of genera available in OrchidRoots</a>
                     </small>
                 </h5>
                 <br>
@@ -152,9 +151,9 @@ img{
                     {% if image.pid.pid.type == 'hybrid' %}
                         <div style="display:inline-block;">
                         <div class="imgcaption_top">
-                            <a href="{% url 'orchidlist:browse' %}?role={{role}}&type={{image.pid.pid.type}}&gen={{image.pid.pid.gen.pid}}&att"><i>{{image.pid.gen}}</i></a>
+                            <a href="#"><i>{{image.pid.gen}}</i></a>
                         </div>
-                        <a href="{% url 'detail:information' image.pid.pid_id %}?role={{role}}&att=">
+                        <a href="#">
                             <div class="box">
                                 <img class="thumbnails" alt="" src="/static/utils/images/hybrid/{{image.image_file}}">
                                 <div class="text-c">{{image.pid.pid.speciesname|safe}}</div>
@@ -164,9 +163,9 @@ img{
                     {% else %}
                         <div style="display:inline-block;">
                         <div class="imgcaption_top">
-                            <a href="{% url 'orchidlist:browse' %}?role={{role}}&type={{image.pid.pid.type}}&gen={{image.pid.pid.gen.pid}}&att"><i>{{image.pid.gen}}</i></a>
+                            <a href="#"><i>{{image.pid.gen}}</i></a>
                         </div>
-                        <a href="{% url 'detail:information' image.pid.pid_id %}?role={{role}}&att=">
+                        <a href="#">
                             <div class="box">
                                 <img class="thumbnails" alt="" src="/static/utils/images/species/{{image.image_file}}">
                                 <div class="text-c">{{image.pid.pid.speciesname|safe}}</div>
