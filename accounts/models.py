@@ -116,6 +116,7 @@ class Photographer(TimeStampedModel):
 class Profile(TimeStampedModel):
     user = models.OneToOneField(
         User, on_delete=models.CASCADE, related_name='profile')
+    email = models.EmailField(max_length=100, blank=True)
     credited_name = models.CharField(max_length=255, null=True)
     current_credit_name = models.OneToOneField(
         Photographer, blank=True, null=True, on_delete=models.DO_NOTHING)
@@ -129,6 +130,8 @@ class Profile(TimeStampedModel):
     country = models.ForeignKey(
         Country, on_delete=models.DO_NOTHING, null=True, blank=True)
     approved = models.BooleanField(blank=True, default=True)
+    created_date = models.DateTimeField(auto_now_add=True)
+    modified_date = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         if self.user.fullname:
