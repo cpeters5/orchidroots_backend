@@ -1,6 +1,6 @@
 import Axios from "axios";
 import "dotenv/config";
-import { BASEURL, isLoggedIn } from "../constants";
+import { BASEURL } from "../constants";
 
 const AxiosInstance = Axios.create({
   baseURL: BASEURL + "/api/",
@@ -12,8 +12,9 @@ const AxiosInstance = Axios.create({
 });
 
 AxiosInstance.interceptors.request.use((config) => {
-  if (isLoggedIn())
-    config.headers.Authorization = localStorage.getItem("auth-token") || "";
+  // after migrate all modules to react we can move back to Auth based on Tokens
+  // if (isLoggedIn())
+  //   config.headers.Authorization = localStorage.getItem("auth-token") || "";
   return config;
 });
 

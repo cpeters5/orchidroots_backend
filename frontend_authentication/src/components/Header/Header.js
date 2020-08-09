@@ -1,5 +1,4 @@
 import React from "react";
-import "./Header.css";
 import { connect } from "react-redux";
 import { logoutInit } from "../../Actions/authActions";
 import { Link } from "react-router-dom";

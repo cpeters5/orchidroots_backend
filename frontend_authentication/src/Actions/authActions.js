@@ -14,7 +14,6 @@ export const loginInit = (
     .then((value) => {
       dispatch(loginSuccess());
       onLoginSuccess();
-      // localStorage.setItem("auth-token", "Token " + value.token);
       window.location.href = "/";
     })
     .catch((err) => {
@@ -40,11 +39,9 @@ export const getCountries = () => async (dispatch) => {
   api.auth
     .getCountries()
     .then((value) => {
-      debugger
       dispatch(getCountriesSuccess(value));
     })
     .catch((err) => {
-      debugger
       dispatch(getCountriesSuccess([]));
     });
 };
@@ -194,7 +191,6 @@ export const forgetPasswordVerifyCode = (
     .forgetPasswordVerifyCode(payload)
     .then(() => {
       onForgetPasswordVerifyCodeSuccess();
-      // dispatch(forgetPasswordSendCodeSuccess(payload.username));
     })
     .catch((err) => {
       onForgetPasswordVerifyCodeFail(err.response.data);
@@ -205,7 +201,6 @@ export const resetPassword = (payload, history) => async (dispatch) => {
   api.auth
     .resetPassword(payload)
     .then(() => {
-      // dispatch(forgetPasswordSendCodeSuccess(payload.username));
       alert(
         "Password reset Successfully, You can login with your new password now."
       );
@@ -222,7 +217,6 @@ export const socialLoginFaceBookInit = (payload, history) => async (
     .socialFaceBookLogin(payload)
     .then((value) => {
       dispatch(loginSuccess());
-      // localStorage.setItem("auth-token", "Token " + value.token);
       window.location.href = "/";
     })
     .catch((err) => {
