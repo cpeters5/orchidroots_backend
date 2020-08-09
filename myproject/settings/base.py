@@ -38,13 +38,6 @@ INSTALLED_APPS = [
     'django.contrib.humanize',
     'rest_framework',
     'rest_framework.authtoken',
-
-    # local
-    # accounts,
-    myproject,
-    utils,
-    orchiddb,
-
     # Third party
     'bootstrap_modal_forms',
     'crispy_forms',
@@ -52,7 +45,9 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'dbmail',
     'accounts',
+    'orchiddb',
     'corsheaders',
+    'frontend_authentication',
 
 ]
 SITE_ID = 1
@@ -171,7 +166,9 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.IsAuthenticated',
     ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        # 'rest_framework.authentication.TokenAuthentication',
     )
 }
 DB_MAILER_ENABLE_CELERY = False

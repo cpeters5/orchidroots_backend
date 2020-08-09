@@ -30,7 +30,7 @@ class Country(TimeStampedModel):
         verbose_name = "Country"
 
 
-class User(AbstractUser):
+class User(AbstractUser,TimeStampedModel):
     NO_SOCIAL = 0
     FACEBOOK = 1
 
@@ -45,7 +45,6 @@ class User(AbstractUser):
     active = models.BooleanField(default=True)
     staff = models.BooleanField(default=False)  # a admin user; non super-user
     admin = models.BooleanField(default=False)  # a superuser
-    created_date = models.DateTimeField(auto_now_add=True)
     tier = models.ForeignKey(Tier, related_name='users',
                              on_delete=models.DO_NOTHING, null=True, blank=True)
     credited_name = models.CharField(max_length=255, null=True)
@@ -91,8 +90,6 @@ class Photographer(TimeStampedModel):
     url = models.CharField(max_length=200, null=True, blank=True)
     web = models.CharField(max_length=200, null=True, blank=True)
     status = models.CharField(max_length=10, default='TBD')
-    created_date = models.DateTimeField(auto_now_add=True)
-    modified_date = models.DateTimeField(auto_now=True)
     expertise = models.CharField(max_length=500, null=True)
     # user_id   = models.OneToOneField(User,unique=True, null=True, blank=True, db_column='user_id', related_name='userid', on_delete=models.DO_NOTHING)
     user_id = models.OneToOneField(
@@ -130,8 +127,6 @@ class Profile(TimeStampedModel):
     country = models.ForeignKey(
         Country, on_delete=models.DO_NOTHING, null=True, blank=True)
     approved = models.BooleanField(blank=True, default=True)
-    created_date = models.DateTimeField(auto_now_add=True)
-    modified_date = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         if self.user.fullname:

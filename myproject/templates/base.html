@@ -334,13 +334,15 @@ body {
 
         <div class="collapse navbar-collapse" id="nav-content">
             <div style="margin:0 20px;">
-            <form class="form-inline" action="{% url 'search:search_match' %}">
+            {% comment %} <form class="form-inline" action="{% url 'search:search_match' %}"> {% endcomment %}
+            <form class="form-inline" action="">
                 <input type="hidden" name="role" value="{{ role }}" />
                 <input type="text" class="form-control border border-right-0 searchbox" style="width:200px;" name="search" value="" onfocus="this.select()" pattern=".{3,}" placeholder="Search..." required title="Include genus to speed up the search.">
             </form>
             </div>
             <ul class="navbar-nav">
-                <a class="nav-link custom-find" href="{% url 'search:nomenclature' %}" style="margin:0 20px;">Nomenclature</a>
+                <a class="nav-link custom-find" href="" style="margin:0 20px;">Nomenclature</a>
+                {% comment %} <a class="nav-link custom-find" href="{% url 'search:nomenclature' %}" style="margin:0 20px;">Nomenclature</a> {% endcomment %}
                 {% if user.is_authenticated %}
                     <li class="nav-item">
                         <div class="nav-item dropdown">
@@ -351,23 +353,30 @@ body {
                                     <li><a class="dropdown-item" href="https://analytics.google.com/analytics/web/?utm_source=marketingplatform.google.com&utm_medium=et&utm_campaign=marketingplatform.google.com%2Fabout%2Fanalytics%2F#/realtime/rt-location/a128957305w207417477p200133280/&att=">Google Analytics</a></li>
                                 {% endif %}
                                 {% if user.tier.tier >= 3 %}
-                                    <li><a class="dropdown-item" href="{% url 'orchidlist:browsegen' %}?role=cur&display=checked&att=">Curator</a></li>
-                                    <li><a class="dropdown-item" href="{% url 'detail:comments' %}?sort=-latest">Comments</a></li>
+                                    {% comment %} <li><a class="dropdown-item" href="{% url 'orchidlist:browsegen' %}?role=cur&display=checked&att=">Curator</a></li>
+                                    <li><a class="dropdown-item" href="{% url 'detail:comments' %}?sort=-latest">Comments</a></li> {% endcomment %}
+                                    <li><a class="dropdown-item" href="">Curator</a></li>
+                                    <li><a class="dropdown-item" href="">Comments</a></li>
                                 {% endif %}
-                                <li><a class="dropdown-item" href="{% url 'orchidlist:browsegen' %}?role=pub&display=checked&att=">Public Collection</a></li>
+                                {% comment %} <li><a class="dropdown-item" href="{% url 'orchidlist:browsegen' %}?role=pub&display=checked&att=">Public Collection</a></li>
                                 <li><a class="dropdown-item" href="{% url 'detail:myphoto_browse_spc' %}?tab=brg&role=pri&att=">My Collection</a></li>
-    <!--                            <hr style="margin:0;padding:0;">-->
                                 <li><a class="dropdown-item" href="{% url 'update_profile' %}?next=/&att=">Update profile</a></li>
-                                <li><a class="dropdown-item" href="{% url 'logout' %}?next=/&att=">Logout</a></li>
+                                <li><a class="dropdown-item" href="{% url 'logout' %}?next=/&att=">Logout</a></li> {% endcomment %}
+                                <li><a class="dropdown-item" href="">Public Collection</a></li>
+                                <li><a class="dropdown-item" href="">My Collection</a></li>
+                                <li><a class="dropdown-item" href="">Update profile</a></li>
+                                <li><a class="dropdown-item" href="/logout">Logout</a></li>
                             </ul>
                         </div>
                     </li>
                 {% else %}
                     <li class="nav-item" style="margin-top:8px;">
-                            <a class="nav-link" href="{% url 'register' %}?next=/login&att=">Register</a>
+                            {% comment %} <a class="nav-link" href="{% url 'register' %}?next=/login&att=">Register</a> {% endcomment %}
+                            <a class="nav-link" href="/signup">Register</a>
                     </li>
                     <li class="nav-item" style="margin-top:8px;">
-                            <a class="nav-link" href="{% url 'login' %}?next=/&att=">Login</a>
+                            {% comment %} <a class="nav-link" href="{% url 'login' %}?next=/&att=">Login</a> {% endcomment %}
+                            <a class="nav-link" href="/login">Login</a>
                     </li>
                 {% endif %}
             </ul>

@@ -19,10 +19,12 @@ from django.urls import reverse
 
 
 class Logout(APIView):
-
     def post(self, request, format=None):
-        request.user.auth_token.delete()
-        return Response(status=status.HTTP_200_OK)
+        auth.logout(request)
+        response = Response(status=status.HTTP_200_OK)
+        response.set_cookie('is_loggedin', 'false')
+        # request.user.auth_token.delete()
+        return response
 
 
 class Signup(APIView):
@@ -40,13 +42,10 @@ class Signup(APIView):
                 5)
             serializer.validated_data.pop('confirm_password', None)
             user = serializer.save()
-            # Uncomment this line if you want to recive emails
             Mail.verify_email(user, user.verify_mail_code)
             context['detail'] = "Signup Succsesfuly"
             return Response(context, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-# we can install Sentry
 
 
 class VerifyEmailCode(APIView):
@@ -91,7 +90,6 @@ class ResendVerificationEmail(APIView):
                 else:
                     user.verify_mail_code = Numbers.generate_random_number(5)
                     user.save()
-                    # Uncomment this line if you want to recive emails
                     Mail.verify_email(user, user.verify_mail_code)
                     context['detail'] = "Verification E-mail sent"
             except User.DoesNotExist:
@@ -118,7 +116,6 @@ class ForgetPasswordSendEmailCodeView(APIView):
                 user.reset_pass_code = Numbers.generate_random_number(5)
                 user.reset_pass_code_attemps = 0
                 user.save()
-                # Uncomment this line if you want to recive emails
                 Mail.forget_password_email(user, user.reset_pass_code)
                 context['detail'] = "Reset password code E-mail sent"
             except User.DoesNotExist:
@@ -213,12 +210,15 @@ class Login(APIView):
         if user is None:
             context['error'] = "Please enter the correct email and password."
             return Response(context, status=status.HTTP_400_BAD_REQUEST)
-        token, created = Token.objects.get_or_create(user=user)
         if user.email_verified:
+            auth.login(request,user)
+            token, created = Token.objects.get_or_create(user=user)
             context['token'] = token.key
             context['email_verified'] = user.email_verified
             update_last_login(None, user)
-            return Response(context, status=status.HTTP_200_OK)
+            response = Response(context, status=status.HTTP_200_OK)
+            response.set_cookie('is_loggedin', 'true')
+            return response
         context['error'] = "Please verify your email."
         return Response(context, status=status.HTTP_400_BAD_REQUEST)
 
@@ -272,9 +272,12 @@ class SocialLogin(APIView):
                                 user.name+'.jpg', auth['userdata']['image'], save=True)
                     user.save()
                 token, created = Token.objects.get_or_create(user=user)
+                auth.login(request,user)
                 context = dict()
                 context['token'] = token.key
-                return Response(context)
+                response = Response(context)
+                response.set_cookie('is_loggedin', 'true')
+                return response
             else:
                 return Response({"detail": 'Social Auth Failed'}, status=status.HTTP_400_BAD_REQUEST)
         else:

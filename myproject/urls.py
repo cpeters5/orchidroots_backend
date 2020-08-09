@@ -22,13 +22,14 @@ from django.views.generic import TemplateView
 from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
-# from myproject.views import orchid_home, home, private_home
+from myproject.views import orchid_home, home, private_home
 
 urlpatterns = [
-    path('', TemplateView.as_view(template_name="index.html")),
+    # path('', TemplateView.as_view(template_name="index.html")),
     path('admin/', admin.site.urls),
 
-    # path('', orchid_home, name='orchid_home'),
+    path('', orchid_home, name='orchid_home'),
+    path('', include('frontend_authentication.urls')),
     # path('home/', orchid_home, name='orchid_home'),
 
     # Future migrations
@@ -39,6 +40,6 @@ urlpatterns = [
     # path('donation/', include('donation.urls')),
 
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
-# urlpatterns +=  url(r'^api/v1/', include('api.urls'), name='apis'),
+urlpatterns +=  url(r'^api/v1/', include('api.urls'), name='apis'),
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-# urlpatterns += staticfiles_urlpatterns()
+urlpatterns += staticfiles_urlpatterns()

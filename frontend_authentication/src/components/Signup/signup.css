@@ -1,0 +1,12 @@
+.signupform {
+        text-align:left;
+        font-size:12px;
+        margin: 0 auto;
+        margin-top: 5em;
+    }
+@media only screen and (max-width: 500px) {
+        .signupform {
+            width: 300px;
+            font-size: 12px;
+        }
+    }
